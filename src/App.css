@@ -72,6 +72,23 @@ button:hover {
   margin-left: 20PX;
 }
 
+.todo-item button.complete {
+  background-color: #28a745; /* Green for Complete */
+}
+
+.todo-item button.complete:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+
+.todo-item button.incomplete {
+  background-color: #ffc107; /* Yellow for Incomplete */
+}
+
+.todo-item button.incomplete:hover {
+  background-color: #e0a800; /* Darker yellow on hover */
+}
+
 .todo-item button:hover {
   background-color: #c82333;
 }
