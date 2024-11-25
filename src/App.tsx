@@ -7,7 +7,7 @@ import "./App.css"; // Import the CSS file
 const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]); // state to hold the todos
   const [inputValue, setInputValue] = useState<string>(""); // State to hold the current input value
-  
+
   // Function to add a new todo
   const addTodo = () => {
     if (inputValue.trim() === "") return; // prevent adding empty items
@@ -23,7 +23,7 @@ const App: React.FC = () => {
   };
 
   // Function to toggle the completion status of a todo item
-  const toggleComplete = (id: number) => { 
+  const toggleComplete = (id: number) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -44,23 +44,30 @@ const App: React.FC = () => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)} // update the input value when the input changes
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === 'Enter') { // Check if the Enter key is pressed
+              addTodo(); // Call the addTodo function
+            }
+          }}
           placeholder="Add a new task"
         />
-        <button onClick={addTodo}>Add</button> {/* Add a button to trigger the addTodo function */}
+        <button onClick={addTodo}>Add</button>{" "}
+        {/* Add a button to trigger the addTodo function */}
       </div>
       <div>
         {todos.map((todo) => (
           <div className="todo-item" key={todo.id}>
             <TodoItem
               todo={todo}
-              toggleComplete={toggleComplete} // Pass the toggleComplete function to the TodoItem component
-              deleteTodo={deleteTodo} // Delete the todo item when the delete button is clicked
+              toggleComplete={() => toggleComplete(todo.id)}
+              deleteTodo={() => deleteTodo(todo.id)}
+              Complete={() => toggleComplete(todo.id)}
+              Incomplete={() => toggleComplete(todo.id)}
             />
           </div>
         ))}
       </div>
     </div>
   );
-};
 
-export default App;
+};export default App;
